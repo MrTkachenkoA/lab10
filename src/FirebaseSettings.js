@@ -1,13 +1,15 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBtCv2YJ232Nr_uBEwfjyuQnf1Z-htJV34",
-  authDomain: "laboratory-work-9-d1fba.firebaseapp.com",
-  projectId: "laboratory-work-9-d1fba",
-  storageBucket: "laboratory-work-9-d1fba.appspot.com",
-  messagingSenderId: "164359715873",
-  appId: "1:164359715873:web:c7b0f78af6ebfbc97d3760",
+  apiKey: "AIzaSyCu-mVrJeMqkktL-_7jdTsaTyUo_KhFhIE",
+  authDomain: "laboratory-work-10-465c4.firebaseapp.com",
+  databaseURL: "https://laboratory-work-10-465c4-default-rtdb.firebaseio.com/",
+  projectId: "laboratory-work-10-465c4",
+  storageBucket: "laboratory-work-10-465c4.appspot.com",
+  messagingSenderId: "1001929990823",
+  appId: "1:1001929990823:web:9e22bd1293eaab3de6b182",
 };
 
 const firebase = initializeApp(firebaseConfig);

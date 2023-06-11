@@ -1,71 +1,30 @@
-import { useState, useEffect } from "react";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../FirebaseSettings";
-import ".././index.css";
-import { RegistrationForm } from "./RegistrationForm";
-import { LoginForm } from "./LoginForm";
-import { DataForm } from "./DataForm";
+import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import "../index.css";
+import { StartMenu } from "./StartMenu";
+import { GameWrapper } from "./GameWrapper";
 
 export const App = () => {
-  const [currentFrom, setCurrentFrom] = useState("Login");
-  const [profile, setProfile] = useState("");
-
-  useEffect(() => {
-    if (auth) {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          setProfile(user);
-        }
-      });
-    }
-  }, [profile]);
-
-  const handleSignOut = () => {
-    if (profile !== "") {
-      signOut(auth)
-        .then(() => {
-          setProfile("");
-          console.log("Sign out successful!");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  };
-
-  const hadleChangeStateRegisterForm = () => {
-    setCurrentFrom("Register");
-  };
-
-  const hadleChangeStateLoginForm = () => {
-    setCurrentFrom("Login");
-  };
+  const [, setNewGameKey] = useState(null);
+  const [, setMainPlayer1] = useState("");
+  const [, setMainPlayer2] = useState("");
 
   return (
     <>
-      <section className="section">
-        {profile === "" ? (
-          <h2 className="unAuthTitle">Please, authorize!</h2>
-        ) : (
-          <div className="authBox">
-            <h2>Hello, {profile.email}!</h2>
-            <button onClick={handleSignOut}>Sign Out</button>
-          </div>
-        )}
-
-        {currentFrom === "Register" ? <RegistrationForm /> : <LoginForm />}
-
-        <div className="currentFormWrap">
-          <button type="button" onClick={hadleChangeStateRegisterForm}>
-            Register form
-          </button>
-          <button type="button" onClick={hadleChangeStateLoginForm}>
-            Login form
-          </button>
-        </div>
-      </section>
-
-      {profile !== "" && <DataForm />}
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={
+            <StartMenu
+              setNewGameKey={setNewGameKey}
+              setMainPlayer1={setMainPlayer1}
+              setMainPlayer2={setMainPlayer2}
+            />
+          }
+        />
+        <Route path="/:newGameKey" element={<GameWrapper />} />
+      </Routes>
     </>
   );
 };
