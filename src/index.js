@@ -5,7 +5,7 @@ import { App } from "./components/App";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter basename="/tic_tac_toe">
+    <BrowserRouter basename="/lab10">
       <App />
     </BrowserRouter>
   </React.StrictMode>
