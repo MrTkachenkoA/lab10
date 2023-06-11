@@ -126,7 +126,7 @@ export const Game = ({ newGameKey }) => {
 
   useEffect(() => {
     loadGame();
-  }, [loadGame]);
+  }, []);
 
   useEffect(() => {
     saveGame();
