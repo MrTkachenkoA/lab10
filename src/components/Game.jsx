@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
-import { firebase } from "../FirebaseSettings";
-import "../index.css";
-import { getDatabase, ref, child, get, set, remove } from "firebase/database";
-import { useNavigate } from "react-router-dom";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
+import { firebase } from '../FirebaseSettings';
+import '../index.css';
+import { getDatabase, ref, child, get, set, remove } from 'firebase/database';
+import { useNavigate } from 'react-router-dom';
 
 export const Game = ({ newGameKey }) => {
   const [loading, setLoading] = useState(true);
@@ -30,8 +32,8 @@ export const Game = ({ newGameKey }) => {
     set(ref(db, `games/${newGameKey}/`), gameData);
   };
 
-  const handleCellClick = async (index) => {
-    if (gameData.board[index] !== "" || gameData.winner !== "") return;
+  const handleCellClick = async index => {
+    if (gameData.board[index] !== '' || gameData.winner !== '') return;
 
     const updatedBoard = [...gameData.board];
 
@@ -41,7 +43,7 @@ export const Game = ({ newGameKey }) => {
         : gameData.player1;
 
     const newCurrentTurn =
-      gameData.currentPlayer === gameData.player1 ? "O" : "X";
+      gameData.currentPlayer === gameData.player1 ? 'O' : 'X';
 
     updatedBoard[index] = gameData.currentTurn;
 
@@ -57,11 +59,11 @@ export const Game = ({ newGameKey }) => {
 
     console.log(newWinner);
 
-    if (winnerTurn === "X") {
+    if (winnerTurn === 'X') {
       newWinner = gameData.player1;
     }
 
-    if (winnerTurn === "O") {
+    if (winnerTurn === 'O') {
       newWinner = gameData.player2;
     }
 
@@ -76,7 +78,7 @@ export const Game = ({ newGameKey }) => {
     }
   };
 
-  const calculateWinner = (currentBoard) => {
+  const calculateWinner = currentBoard => {
     const winningCombinations = [
       [0, 1, 2],
       [3, 4, 5],
@@ -91,7 +93,7 @@ export const Game = ({ newGameKey }) => {
     for (let combination of winningCombinations) {
       const [a, b, c] = combination;
       if (
-        currentBoard[a] !== "" &&
+        currentBoard[a] !== '' &&
         currentBoard[a] === currentBoard[b] &&
         currentBoard[a] === currentBoard[c]
       ) {
@@ -99,8 +101,8 @@ export const Game = ({ newGameKey }) => {
       }
     }
 
-    if (currentBoard.every((cell) => cell !== "")) {
-      return "draw";
+    if (currentBoard.every(cell => cell !== '')) {
+      return 'draw';
     }
 
     return null;
@@ -110,10 +112,10 @@ export const Game = ({ newGameKey }) => {
     setGameData({
       player1: gameData.player1,
       player2: gameData.player2,
-      board: Array(9).fill(""),
+      board: Array(9).fill(''),
       currentPlayer: gameData.player1,
-      currentTurn: "X",
-      winner: "",
+      currentTurn: 'X',
+      winner: '',
     });
   };
 
@@ -124,7 +126,7 @@ export const Game = ({ newGameKey }) => {
 
   useEffect(() => {
     loadGame();
-  }, []);
+  }, [loadGame]);
 
   useEffect(() => {
     saveGame();
@@ -157,16 +159,16 @@ export const Game = ({ newGameKey }) => {
         {gameData.winner ? (
           <h3>
             Player
-            <p className={gameData.currentTurn === "O" ? "X" : "O"}>
+            <p className={gameData.currentTurn === 'O' ? 'X' : 'O'}>
               {gameData.winner}
             </p>
             wins!
           </h3>
-        ) : gameData.winner === "draw" ? (
+        ) : gameData.winner === 'draw' ? (
           <h3>"It's a draw!"</h3>
         ) : (
           <h3>
-            Current Player:{" "}
+            Current Player:{' '}
             <p className={gameData.currentTurn}>{gameData.currentPlayer}</p>
           </h3>
         )}

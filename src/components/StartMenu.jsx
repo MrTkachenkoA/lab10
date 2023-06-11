@@ -1,4 +1,5 @@
 import { useState } from "react";
+// eslint-disable-next-line no-unused-vars
 import { firebase } from "../FirebaseSettings";
 import "../index.css";
 import { getDatabase, ref, child, update, push } from "firebase/database";
